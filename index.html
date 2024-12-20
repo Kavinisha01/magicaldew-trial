@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="signUpMessage" class="messageDiv regDiv" style="display: none;"></div>
+        <div class="login-box height">
+            <h2>Welcome To MagicalDew</h2>
+            <form id="form">
+                <div class="input-container">
+                    <i class="fa fa-user-o left" id="user-icon"></i>
+                    <input type="text" id="username" placeholder="Username" autocomplete="username">
+                    <span id="usernameError" class="error-message"></span>
+                </div>
+
+                <div  class="input-container">
+                    <i class="fa fa-envelope-o left"></i>
+                    <input type="email" id="email" placeholder="Email" autocomplete="email">
+                    <span id="emailError" class="error-message"></span>
+                </div>
+
+                <div class="input-container">
+                    <i class="fa fa-lock left"></i>
+                    <input type="password" id="password" placeholder="Password" autocomplete="new-password">
+                    <i class="fa fa-eye-slash" id="showPassword"></i>
+                    <span id="passwordError" class="error-message"></span>
+                </div>
+
+                <button id="submit" type="submit">Sign Up</button>
+
+            </form>
+            <div class="create-account">
+                <p>Already have an account? <a href="./pages/login.html">Login Here</a></p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

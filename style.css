@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=DM+Serif+Display&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(../assets/images/regi-login-bg-img.jpg);
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #C0C0C0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    font-family: "DM Serif Display", serif;
+    /* font-size: 18px; */
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 450px;
+}
+
+
+.login-box {
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 370px;
+    height: auto;
+    margin-bottom: -15%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    font-size: 23px;
+    color: #080808;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+    margin: 12px;
+}
+
+.input-container input {
+    padding: 12px 12px 12px 40px;
+    padding-left: 33px;
+    margin: 0 auto;
+    border: 1px solid #C0C0C0;
+    border-radius: 15px;
+    font-size: 16px;
+    width: 88%;
+    margin-left: 6%;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.input-container .fa {
+    position: absolute;
+    top: 49%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #0c0c0c;
+}
+
+.input-container .fa.left {
+    left: 9%;
+}
+
+.input-container .fa.right {
+    right: 9%;
+}
+
+#showPassword {
+    position: absolute;
+    font-size: 20px;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #4f4c4c;
+    z-index: 10;
+}
+
+button {
+    padding: 12px;
+    background-color: #9a646f;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #b06977;
+}
+
+.create-account {
+    margin-top: 20px;
+    text-align: center;
+   
+}
+
+.create-account a {
+    text-decoration: none;
+    color: #9a646f;
+    font-weight: 600;
+}
+
+.create-account p{
+    color: black;
+}
+
+.messageDiv{
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+    color: rgb(2, 1, 1);
+    padding: 10px;
+    width: 350px;
+    height: auto;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 100;
+    text-align: center;
+    transition: all 0.5s ease;
+    position: absolute;
+    z-index: 1;
+    bottom: 68%;
+    
+}
+
+.regDiv{
+     margin-bottom: 35px;
+}
+
+#signUpMessage {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    display: block;
+}
+
+
+.error-message {
+    font-family: Arial, sans-serif;
+    position: absolute;
+    top: 110%;
+    left: 6%;
+    color: rgb(147, 9, 9);
+    font-size: 11px;
+    visibility: hidden;
+}
+
+.input-container.error .error-message {
+    visibility: visible;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 500px;
+        
+    }
+    
+}

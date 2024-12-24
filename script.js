@@ -35,7 +35,7 @@ function showMessage(message, divId) {
     }, 2000);
 }
 
-// Handle form submission
+// Ensure the DOM is fully loaded before running the script
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("form");
     const usernameInput = document.getElementById("username");
@@ -46,6 +46,61 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passwordError");
 
+    function validateUsername() {
+        const username = usernameInput.value.trim();
+        if (!username) {
+            usernameError.textContent = "Username is required!";
+            usernameError.style.visibility = "visible";
+            return false;
+        } else if (username.length < 8 || username !== username.toLowerCase()) {
+            usernameError.textContent = "Username must be at least 8 characters and in lowercase.";
+            usernameError.style.visibility = "visible";
+            return false;
+        } else {
+            usernameError.style.visibility = "hidden";
+            return true;
+        }
+    }
+
+    function validateEmail() {
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email) {
+            emailError.textContent = "Email is required!";
+            emailError.style.visibility = "visible";
+            return false;
+        } else if (!emailRegex.test(email)) {
+            emailError.textContent = "Enter a valid email address.";
+            emailError.style.visibility = "visible";
+            return false;
+        } else {
+            emailError.style.visibility = "hidden";
+            return true;
+        }
+    }
+
+    function validatePassword() {
+        const password = passwordInput.value.trim();
+        if (!password) {
+            passwordError.textContent = "Password is required!";
+            passwordError.style.visibility = "visible";
+            return false;
+        } else if (!/^(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/.test(password)) {
+            passwordError.textContent = "Password must be at least 8 characters with a special character.";
+            passwordError.style.visibility = "visible";
+            return false;
+        } else {
+            passwordError.style.visibility = "hidden";
+            return true;
+        }
+    }
+
+    // Attach input listeners for real-time validation
+    usernameInput.addEventListener("input", validateUsername);
+    emailInput.addEventListener("input", validateEmail);
+    passwordInput.addEventListener("input", validatePassword);
+
+    // Handle form submission
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -53,48 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
-        // Validation
-        let isValid = true;
+        const isUsernameValid = validateUsername();
+        const isEmailValid = validateEmail();
+        const isPasswordValid = validatePassword();
 
-        if (!username) {
-            usernameError.textContent = "Username is required!";
-            usernameError.style.visibility = "visible";
-            isValid = false;
-        } else if (username.length < 8 || username !== username.toLowerCase()) {
-            usernameError.textContent = "Username must be at least 8 characters in lowercase.";
-            usernameError.style.visibility = "visible";
-            isValid = false;
-        } else {
-            usernameError.style.visibility = "hidden";
+        if (!isUsernameValid || !isEmailValid || !isPasswordValid) {
+            return;
         }
 
-        if (!email) {
-            emailError.textContent = "Email is required!";
-            emailError.style.visibility = "visible";
-            isValid = false;
-        } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
-            emailError.textContent = "Enter a valid email address.";
-            emailError.style.visibility = "visible";
-            isValid = false;
-        } else {
-            emailError.style.visibility = "hidden";
-        }
-
-        if (!password) {
-            passwordError.textContent = "Password is required!";
-            passwordError.style.visibility = "visible";
-            isValid = false;
-        } else if (!/^(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/.test(password)) {
-            passwordError.textContent = "Password must be at least 8 characters with a special character.";
-            passwordError.style.visibility = "visible";
-            isValid = false;
-        } else {
-            passwordError.style.visibility = "hidden";
-        }
-
-        if (!isValid) return;
-
-        // Create user in Firebase Authentication
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -107,13 +128,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
             showMessage("Account created successfully!", "signUpMessage");
             form.reset();
+            usernameError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
         } catch (error) {
             if (error.code === "auth/email-already-in-use") {
-                showMessage("Email is already in use!", "signUpMessage");
+                showMessage("Email is already in use!", "signUpMessage", true);
             } else {
-                showMessage("Error creating account. Please try again.", "signUpMessage");
+                showMessage("Error creating account. Please try again.", "signUpMessage", true);
             }
             console.error("Error:", error.message);
+        }
+    });
+
+    // Toggle password visibility
+    const showPasswordIcon = document.getElementById("showPassword");
+    showPasswordIcon.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            showPasswordIcon.classList.remove("fa-eye-slash");
+            showPasswordIcon.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password";
+            showPasswordIcon.classList.remove("fa-eye");
+            showPasswordIcon.classList.add("fa-eye-slash");
         }
     });
 });

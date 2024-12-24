@@ -173,7 +173,7 @@ button:hover {
     left: 6%;
     color: rgb(147, 9, 9);
     font-size: 11px;
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 .input-container.error .error-message {
